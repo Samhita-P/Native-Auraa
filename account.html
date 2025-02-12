@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Options</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #8B4513; /* Brown background */
+            color: white;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #5A2D0C; /* Darker brown */
+            padding: 15px;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+
+        section {
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 800px;
+        }
+
+        h2 {
+            cursor: pointer;
+            color: #FFD700; /* Gold color */
+            margin-bottom: 10px;
+        }
+
+        .content {
+            display: none;
+            background-color: #5A2D0C; /* Contrast background for content */
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+<header>Account Options</header>
+
+<section>
+    
+   <h2 onclick="toggleContent('help-center-content')">Help Center</h2>
+<div id="help-center-content" class="content">
+    <h3>FAQs</h3>
+    <ul>
+        <li><strong>How do I track my order?</strong> <br>Log in to your account, go to "Orders," and click on the "Track" button next to your order.</li>
+        <li><strong>What is the return policy?</strong> <br>We accept returns for damaged or defective items within 7 days of delivery. Check our <a href="#terms-content">Terms of Use</a> for details.</li>
+        <li><strong>How can I contact customer support?</strong> <br>Use the options below to connect with us via email, phone, or live chat.</li>
+    </ul>
+
+    <h3>Live Chat Support</h3>
+    <button onclick="startLiveChat()">Start Live Chat</button>
+
+    <h3>Contact Us</h3>
+    <p>We’re here to help! Reach out to us through the following channels:</p>
+    <ul>
+        <li><strong>Email:</strong> nativeauraa@gmail.com</li>
+        <li><strong>Hours:</strong> 9:00 AM - 8:00 PM (Mon-Sat)</li>
+    </ul>
+
+    <h3>Report an Issue</h3>
+    <form id="issue-report-form">
+        <label for="issue-type">Select Issue Type:</label><br>
+        <select id="issue-type" name="issue-type">
+            <option value="order">Order Issue</option>
+            <option value="payment">Payment Issue</option>
+            <option value="product">Product Issue</option>
+            <option value="other">Other</option>
+        </select><br><br>
+
+        <label for="issue-description">Describe the Issue:</label><br>
+        <textarea id="issue-description" name="issue-description" rows="4" placeholder="Enter details here..."></textarea><br><br>
+
+        <button type="button" onclick="submitIssue()">Submit Issue</button>
+    </form>
+</div>
+
+
+    <h2 onclick="toggleContent('challenges-content')">Challenges</h2>
+        <div id="challenges-content" class="content">
+            <h3>Fun Challenges</h3>
+            <div id="challenge-list">
+                <!-- Challenges will be dynamically loaded here -->
+                <a href="quiz.html">Take the Quiz</a><br>
+                <a href="guess.html">Guess the word</a><br>
+                <a href="memory.html">Memory game</a><br>
+                <a href="treasure.html">Treasure hunt</a><br>
+            </div>
+        </div>
+
+
+    <h2 onclick="toggleContent('native-aura-content')">Native Aura Suggests</h2>
+    <div id="native-aura-content" class="content">
+        <p>Recommended for you:</p>
+        <ul>
+            <li>Soliga Bamboo Storage Basket - ₹250</li>
+            <li>Kadu Kuruba Wooden Elephant Carving - ₹1200</li>
+            <li>Lambani Handwoven Cotton Saree - ₹1800</li>
+        </ul>
+    </div>
+
+    <h2 onclick="toggleContent('settings-content')">Settings</h2>
+<div id="settings-content" class="content">
+    <h3>Account Details</h3>
+    <form id="update-details-form">
+        <label for="name">Full Name:</label><br>
+        <input type="text" id="name" value="" placeholder="Loading..."><br><br>
+        <label for="email">Email Address:</label><br>
+        <input type="email" id="email" value="" placeholder="Loading..."><br><br>
+        <label for="phone">Phone Number:</label><br>
+        <input type="tel" id="phone" value="" placeholder="Loading..."><br><br>
+        <button type="button" onclick="updateDetails()">Update Details</button>
+    </form>
+
+    <h3>Address Management</h3>
+    <ul id="address-list">
+        <!-- Addresses will be dynamically inserted here -->
+    </ul>
+    <button onclick="addAddress()">Add New Address</button>
+
+    <h3>Notification Preferences</h3>
+    <form id="notification-form">
+        <label>
+            <input type="checkbox" id="email-notifications">
+            Email Notifications
+        </label><br>
+        <label>
+            <input type="checkbox" id="sms-notifications">
+            SMS Notifications
+        </label><br><br>
+        <button type="button" onclick="updateNotifications()">Save Preferences</button>
+    </form>
+
+    <h3>Change Password</h3>
+    <form id="change-password-form">
+        <label for="current-password">Current Password:</label><br>
+        <input type="password" id="current-password" placeholder="Enter current password"><br><br>
+        <label for="new-password">New Password:</label><br>
+        <input type="password" id="new-password" placeholder="Enter new password"><br><br>
+        <label for="confirm-password">Confirm New Password:</label><br>
+        <input type="password" id="confirm-password" placeholder="Re-enter new password"><br><br>
+        <button type="button" onclick="changePassword()">Change Password</button>
+    </form>
+
+    <h3>Delete Account</h3>
+    <p><strong>Warning:</strong> Deleting your account is permanent and cannot be undone.</p>
+    <button onclick="deleteAccount()">Delete Account</button>
+</div>
+
+
+    <h2 onclick="toggleContent('faqs-content')">FAQs</h2>
+<div id="faqs-content" class="content">
+    <h3>General Questions</h3>
+    <p><strong>What is Native Aura?</strong><br>
+        Native Aura is an online platform that connects customers with authentic, handcrafted products made by tribal communities of Karnataka. We aim to preserve and promote their rich cultural heritage.
+    </p>
+    <p><strong>How does shopping on Native Aura support tribal artisans?</strong><br>
+        Every purchase directly benefits tribal artisans by providing them with a sustainable livelihood and a platform to showcase their unique crafts.
+    </p>
+
+    <h3>Orders and Shipping</h3>
+    <p><strong>How do I track my order?</strong><br>
+        Once your order is placed, you will receive a tracking link via email and SMS. You can also log in to your account and navigate to the "Orders" section to track your order.
+    </p>
+    <p><strong>What is the estimated delivery time?</strong><br>
+        Our delivery time ranges from 5-10 business days, depending on your location and the product's availability.
+    </p>
+    <p><strong>Do you offer international shipping?</strong><br>
+        Currently, we deliver only within India. We are working on expanding our services to other countries.
+    </p>
+    <p><strong>What are the shipping charges?</strong><br>
+        Shipping is free for orders above ₹1000. For orders below ₹1000, a nominal fee of ₹50-100 applies, depending on the delivery location.
+    </p>
+
+    <h3>Returns and Refunds</h3>
+    <p><strong>What is your return policy?</strong><br>
+        We accept returns for damaged or defective items within 7 days of delivery. The product must be unused and in its original packaging.
+    </p>
+    <p><strong>How do I initiate a return or refund?</strong><br>
+        To request a return, log in to your account, go to "Orders," select the product, and click "Request Return." Refunds will be processed within 7-10 business days after the product is returned.
+    </p>
+    <p><strong>Are all items eligible for return?</strong><br>
+        Customized or made-to-order products are non-returnable. However, if you receive a damaged item, we will replace it or issue a refund.
+    </p>
+
+    <h3>Payments</h3>
+    <p><strong>What payment methods do you accept?</strong><br>
+        We accept major payment methods, including:
+        <ul>
+            <li>Credit/Debit Cards</li>
+            <li>UPI (Google Pay, PhonePe, etc.)</li>
+            <li>Net Banking</li>
+            <li>Cash on Delivery (COD)</li>
+        </ul>
+    </p>
+    <p><strong>Is COD available for all products?</strong><br>
+        Yes, COD is available for all orders below ₹5000. For orders above ₹5000, we require online payment.
+    </p>
+    <p><strong>Is my payment information secure?</strong><br>
+        Absolutely! We use secure payment gateways with end-to-end encryption to ensure your payment details are safe.
+    </p>
+
+    <h3>Products</h3>
+    <p><strong>Are the products authentic?</strong><br>
+        Yes, all products on Native Aura are handcrafted by tribal artisans and sourced directly from them to ensure authenticity.
+    </p>
+    <p><strong>Can I customize the products?</strong><br>
+        Some artisans offer customization. Check the product description or contact customer support for more details.
+    </p>
+    <p><strong>What types of products are available on Native Aura?</strong><br>
+        We offer a wide range of products, including:
+        <ul>
+            <li>Handcrafted jewelry</li>
+            <li>Traditional textiles</li>
+            <li>Home décor</li>
+            <li>Organic produce</li>
+            <li>Art and collectibles</li>
+        </ul>
+    </p>
+
+    <h3>Account and Support</h3>
+    <p><strong>How do I create an account on Native Aura?</strong><br>
+        Click on the "Sign Up" button at the top-right corner of the website. Fill in your details, and you’re ready to explore!
+    </p>
+    <p><strong>What should I do if I forget my password?</strong><br>
+        Click "Forgot Password" on the login page and follow the instructions to reset your password.
+    </p>
+    <p><strong>How can I contact customer support?</strong><br>
+        You can reach our support team via:
+        <ul>
+            <li>Email: support@nativeaura.com</li>
+            <li>Phone: +91 9876543210</li>
+            <li>Live Chat: Available 24/7</li>
+        </ul>
+    </p>
+
+    <h3>Sustainability and Impact</h3>
+    <p><strong>How does Native Aura promote sustainability?</strong><br>
+        We prioritize eco-friendly practices by offering products made with sustainable materials and encouraging fair trade with our artisans.
+    </p>
+    <p><strong>How can I learn more about the tribal communities featured on Native Aura?</strong><br>
+        Visit our "About Us" page, where we share detailed stories, traditions, and cultural insights about Karnataka's tribal communities.
+    </p>
+</div>
+
+
+    <h2 onclick="toggleContent('about-content')">About Us</h2>
+    <div id="about-content" class="content">
+        <p>
+            Welcome to <strong>Native Aura</strong>! Native Aura is a dedicated platform aimed at showcasing 
+            the rich cultural heritage of Karnataka's tribal communities. Our goal is to connect users with 
+            the vibrant traditions, crafts, and stories of these lesser-known tribes, fostering appreciation 
+            and support for their unique contributions.
+        </p>
+        <p>
+            <strong>Mission:</strong> Preserve and promote the diverse cultural heritage of Karnataka's tribal communities 
+            while providing a platform for their unique products.
+        </p>
+        <p>
+            <strong>Vision:</strong> Become a leading resource for promoting tribal art and culture across Karnataka 
+            and beyond, building awareness and appreciation for indigenous communities.
+        </p>
+        <p>
+            <strong>Objectives:</strong> Educate users, support local artisans, and engage users with interactive features.
+        </p>
+    </div>
+
+    <h2 onclick="toggleContent('terms-content')">Terms of Use</h2>
+<div id="terms-content" class="content">
+    <p>
+        Welcome to Native Aura! By accessing or using our website and services, you agree to the following terms and conditions. 
+        Please read them carefully.
+    </p>
+
+    <h3>1. Introduction</h3>
+    <p>
+        Native Aura is an e-commerce platform showcasing and selling authentic tribal products handcrafted by Karnataka's 
+        tribal communities. By accessing this site, you agree to abide by these Terms of Use and all applicable laws and 
+        regulations. If you do not agree with any part of these terms, you are advised not to use this website.
+    </p>
+
+    <h3>2. Eligibility</h3>
+    <p>
+        - You must be at least 18 years old or have parental/guardian consent to use our platform.<br>
+        - By using Native Aura, you represent and warrant that all information you provide is accurate and up-to-date.
+    </p>
+
+    <h3>3. Account Creation and Security</h3>
+    <p>
+        - You are responsible for maintaining the confidentiality of your account credentials.<br>
+        - Notify us immediately at <strong>nativeauraa@gmail.com</strong> if you suspect unauthorized use of your account.<br>
+        - We reserve the right to suspend or terminate accounts that violate our terms.
+    </p>
+
+    <h3>4. Product Information and Pricing</h3>
+    <p>
+        - All products are handcrafted and may have minor variations, which are not considered defects.<br>
+        - Prices are subject to change without notice.<br>
+        - We strive to provide accurate product descriptions; however, we do not guarantee that all descriptions or images 
+          are error-free.
+    </p>
+
+    <h3>5. Orders and Payments</h3>
+    <p>
+        - Orders are confirmed only upon successful payment or COD approval.<br>
+        - We reserve the right to cancel orders due to pricing errors, stock unavailability, or unforeseen circumstances.<br>
+        - Accepted payment methods include Credit/Debit Cards, UPI, Net Banking, and Cash on Delivery.
+    </p>
+
+    <h3>6. Shipping and Delivery</h3>
+    <p>
+        - Delivery timelines are estimates and may vary based on location and product availability.<br>
+        - Native Aura is not responsible for delays caused by third-party courier services.
+    </p>
+
+    <h3>7. Returns, Refunds, and Cancellations</h3>
+    <p>
+        - Returns are accepted only for damaged or defective products reported within 7 days of delivery.<br>
+        - Refunds will be processed within 7-10 business days after the returned product is received.<br>
+        - Orders can be canceled before shipment. Once shipped, cancellation requests will not be accepted.
+    </p>
+
+    <h3>8. User Conduct</h3>
+    <p>
+        By using this website, you agree that you will not:<br>
+        - Use Native Aura for fraudulent or illegal activities.<br>
+        - Interfere with the functionality of the website or attempt to gain unauthorized access to our systems.<br>
+        - Post or share content that is defamatory, obscene, or violates the rights of others.
+    </p>
+
+    <h3>9. Intellectual Property</h3>
+    <p>
+        - All content on Native Aura, including text, images, logos, and designs, is the property of Native Aura or its licensors.<br>
+        - You may not use, reproduce, or distribute any content without prior written permission.
+    </p>
+
+    <h3>10. Limitation of Liability</h3>
+    <p>
+        - Native Aura is not liable for any direct, indirect, incidental, or consequential damages arising from the use of 
+          our platform.<br>
+        - We are not responsible for any inaccuracies in product descriptions or delays caused by external factors.
+    </p>
+
+    <h3>11. Privacy Policy</h3>
+    <p>
+        Your use of Native Aura is subject to our Privacy Policy, which governs the collection, use, and protection of your 
+        personal data.
+    </p>
+
+    <h3>12. Governing Law</h3>
+    <p>
+        These terms are governed by the laws of India. Any disputes will be resolved in the courts of [City], Karnataka.
+    </p>
+
+    <h3>13. Modifications to Terms</h3>
+    <p>
+        Native Aura reserves the right to modify these terms at any time. Updates will be posted on this page, and it is 
+        your responsibility to review them regularly.
+    </p>
+
+    <h3>14. Contact Us</h3>
+    <p>
+        For questions or concerns about these Terms of Use, please contact us at:<br>
+        - <strong>Email</strong>: nativeauraa@gmail.com<br>
+    </p>
+
+    <p>Thank you for supporting Native Aura and Karnataka's tribal communities. We are committed to providing you with a seamless and meaningful shopping experience!</p>
+</div>
+
+
+    <h2 onclick="toggleContent('privacy-content')">Privacy Policy</h2>
+<div id="privacy-content" class="content">
+    <p>
+        At <strong>Native Aura</strong>, your privacy is important to us. This Privacy Policy outlines how we collect, use, 
+        share, and protect your personal information when you visit or interact with our website. By using Native Aura, 
+        you agree to the terms outlined in this policy.
+    </p>
+
+    <h3>1. Information We Collect</h3>
+    <p><strong>a. Personal Information:</strong></p>
+    <ul>
+        <li>Name, email address, phone number, and shipping address when you create an account or place an order.</li>
+        <li>Payment information, such as credit/debit card details or UPI IDs, processed securely by third-party payment gateways.</li>
+    </ul>
+    <p><strong>b. Non-Personal Information:</strong></p>
+    <ul>
+        <li>Browser type, IP address, device information, and browsing behavior collected through cookies and similar technologies.</li>
+        <li>Purchase history, preferences, and feedback to enhance your shopping experience.</li>
+    </ul>
+
+    <h3>2. How We Use Your Information</h3>
+    <p>We use the information collected for the following purposes:</p>
+    <ul>
+        <li><strong>Order Fulfillment:</strong> To process and deliver your orders, send confirmations, and provide updates.</li>
+        <li><strong>Customer Support:</strong> To respond to your queries and provide assistance.</li>
+        <li><strong>Personalization:</strong> To recommend products and offers based on your interests.</li>
+        <li><strong>Marketing and Promotions:</strong> To send newsletters, promotional emails, and updates (you can opt out anytime).</li>
+        <li><strong>Legal Compliance:</strong> To meet legal and regulatory requirements.</li>
+    </ul>
+
+    <h3>3. Sharing Your Information</h3>
+    <p>We do not sell or rent your personal information to third parties. However, we may share your information in the following cases:</p>
+    <ul>
+        <li><strong>With Service Providers:</strong> To process payments, ship orders, and conduct analytics.</li>
+        <li><strong>With Legal Authorities:</strong> To comply with legal obligations, prevent fraud, or enforce our Terms of Use.</li>
+        <li><strong>With Consent:</strong> When you explicitly agree to share your information with third parties.</li>
+    </ul>
+
+    <h3>4. Cookies and Tracking Technologies</h3>
+    <p><strong>Cookies:</strong> We use cookies to enhance your experience, such as remembering your preferences and analyzing website performance.</p>
+    <p><strong>Types of Cookies We Use:</strong></p>
+    <ul>
+        <li><strong>Essential Cookies:</strong> For basic site functionality, like account login and shopping cart.</li>
+        <li><strong>Performance Cookies:</strong> To measure and improve website performance.</li>
+        <li><strong>Targeting Cookies:</strong> To display personalized advertisements.</li>
+    </ul>
+    <p>You can manage your cookie preferences through your browser settings.</p>
+
+    <h3>5. Data Security</h3>
+    <p>We are committed to protecting your data. Measures we take include:</p>
+    <ul>
+        <li><strong>Encryption:</strong> Secure encryption for sensitive data during transmission.</li>
+        <li><strong>Access Control:</strong> Restricted access to personal data to authorized personnel only.</li>
+        <li><strong>Regular Audits:</strong> Routine security checks to identify and fix vulnerabilities.</li>
+    </ul>
+    <p>Despite our efforts, no system is entirely foolproof. We encourage users to maintain the confidentiality of their account credentials.</p>
+
+    <h3>6. Your Rights</h3>
+    <p>As a user, you have the following rights concerning your personal information:</p>
+    <ul>
+        <li><strong>Access and Update:</strong> View and update your personal information in your account settings.</li>
+        <li><strong>Data Deletion:</strong> Request deletion of your data by contacting us at <strong>privacy@nativeaura.com</strong>.</li>
+        <li><strong>Opt-Out:</strong> Unsubscribe from marketing communications at any time using the "Unsubscribe" link in emails.</li>
+    </ul>
+
+    <h3>7. Third-Party Links</h3>
+    <p>Our website may contain links to external sites. We are not responsible for the privacy practices of these sites. 
+       We encourage you to read their privacy policies before sharing your information.</p>
+
+    <h3>8. Children's Privacy</h3>
+    <p>Native Aura is not intended for users under the age of 18 without parental consent. We do not knowingly collect information from children.</p>
+
+    <h3>9. Changes to this Policy</h3>
+    <p>We may update this Privacy Policy from time to time. Changes will be posted on this page with the updated effective date. 
+       We recommend reviewing this policy regularly.</p>
+
+    <h3>10. Contact Us</h3>
+    <p>If you have any questions or concerns about this Privacy Policy, please contact us:</p>
+    <ul>
+        <li><strong>Email:</strong> nativeauraa@gmail.com</li>
+    </ul>
+
+    <p>Thank you for trusting Native Aura. We are committed to safeguarding your privacy and enhancing your shopping experience!</p>
+</div>
+
+
+    <h2 onclick="toggleContent('logout-content')">Logout</h2>
+    <div id="logout-content" class="content">
+        <p>
+            Are you sure you want to logout? You will need to login or signup again to access your account.
+        </p>
+        <button onclick="logout()">Logout</button>
+    </div>
+
+</section>
+
+<script>
+    // Function to toggle the visibility of content
+    function toggleContent(contentId) {
+        const content = document.getElementById(contentId);
+        if (content.style.display === "none" || content.style.display === "") {
+            content.style.display = "block";
+        } else {
+            content.style.display = "none";
+        }
+    }
+
+    function logout() {
+        // Simulate logout by clearing session data if needed
+        alert("You have been logged out!");
+
+        // Redirect to login page
+        window.location.href = "login.html";
+    }
+    
+</script>
+<script src="nativeaura.js"></script>
+<script src="acc.js"></script>
+<script src="script.js"></script>
+<script src="server.js"></script>
+</body>
+</html>

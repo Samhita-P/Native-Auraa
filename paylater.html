@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pay Later Options</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white; /* White background */
+            color: black;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .pay-later-section {
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+            border: 1px solid #CCC;
+            border-radius: 10px;
+            background-color: #F9F9F9; /* Light gray for the container */
+            margin-top: 50px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .option {
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .option h3 {
+            color: #333; /* Dark gray for headings */
+        }
+
+        button {
+            background-color: #8B4513; /* Brown buttons */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        button:hover {
+            background-color: #A0522D; /* Lighter brown on hover */
+        }
+
+        select {
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #CCC;
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        p {
+            margin: 10px 0;
+            font-size: 1em;
+            color: #555; /* Medium gray for text */
+        }
+
+        .order-confirmation {
+            display: none;
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px solid #CCC;
+            border-radius: 10px;
+            background-color: #F9F9F9; /* Light gray for confirmation */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .return-btn {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="pay-later-section" id="pay-later-section">
+        <h2>Pay Later Options</h2>
+
+        <!-- EMI Plans -->
+        <div class="option">
+            <h3>1. EMI Plans</h3>
+            <p>Select an EMI plan:</p>
+            <select id="emi-options" onchange="showEMIDetails()">
+                <option value="" disabled selected>Select Tenure</option>
+                <option value="3">3 months - 0% Interest</option>
+                <option value="6">6 months - 13% Interest</option>
+                <option value="12">12 months - 13% Interest</option>
+            </select>
+            <p id="emi-details"></p>
+        </div>
+
+        <!-- BNPL Services -->
+        <div class="option">
+            <h3>2. Buy Now, Pay Later Services</h3>
+            <p>Select a provider:</p>
+            <button onclick="showBNPLDetails('LazyPay')">LazyPay</button>
+            <button onclick="showBNPLDetails('Simpl')">Simpl</button>
+            <button onclick="showBNPLDetails('ZestMoney')">ZestMoney</button>
+            <p id="bnpl-details"></p>
+        </div>
+
+        <!-- Deferred Payment -->
+        <div class="option">
+            <h3>3. Deferred Payment</h3>
+            <p>Choose your repayment period:</p>
+            <button onclick="showDeferredDetails('30 days')">Pay within 30 days</button>
+            <button onclick="showDeferredDetails('60 days')">Pay after 60 days</button>
+            <p id="deferred-details"></p>
+        </div>
+
+        <!-- Wallet Credit -->
+        <div class="option">
+            <h3>4. Wallet Credit</h3>
+            <p>Available Credit: ₹0</p>
+            <button onclick="useWalletCredit()">Use Wallet Credit</button>
+            <p id="wallet-details"></p>
+        </div>
+
+        <!-- Pay Button -->
+        <button class="pay-btn" onclick="placeOrder()">Pay</button>
+    </div>
+
+    <!-- Order Confirmation Section -->
+    <div class="order-confirmation" id="order-confirmation">
+        <h2>Order Confirmation</h2>
+        <p>Your order has been successfully placed!</p>
+        <p>Your order will be delivered in 8 days. Thank you for trusting us.</p>
+        <button class="return-btn" onclick="returnToWebpage()">Return to Webpage</button>
+    </div>
+
+    <script>
+        function showEMIDetails() {
+            const emiOptions = document.getElementById("emi-options");
+            const selectedOption = emiOptions.value;
+
+            let details = "";
+            if (selectedOption === "3") {
+                details = "3 months - ₹1,000/month at 0% interest.";
+            } else if (selectedOption === "6") {
+                details = "6 months - ₹550/month at 13% interest.";
+            } else if (selectedOption === "12") {
+                details = "12 months - ₹300/month at 13% interest.";
+            }
+
+            document.getElementById("emi-details").innerText = details;
+        }
+
+        function showBNPLDetails(provider) {
+            let details = "";
+            if (provider === "LazyPay") {
+                details = "LazyPay offers a credit limit of ₹10,000 with repayment in 15 or 30 days.";
+            } else if (provider === "Simpl") {
+                details = "Simpl allows you to pay your bill after 15 days, interest-free.";
+            } else if (provider === "ZestMoney") {
+                details = "ZestMoney provides a flexible EMI option with up to ₹20,000 credit.";
+            }
+
+            document.getElementById("bnpl-details").innerText = `Selected Provider: ${provider}. ${details}`;
+        }
+
+        function showDeferredDetails(period) {
+            let details = "";
+            if (period === "30 days") {
+                details = "Pay within 30 days: No additional charge.";
+            } else if (period === "60 days") {
+                details = "Pay after 60 days: 1.5% processing fee.";
+            }
+
+            document.getElementById("deferred-details").innerText = `Selected Option: ${details}`;
+        }
+
+        function useWalletCredit() {
+            document.getElementById("wallet-details").innerText = "No wallet points in your account.";
+        }
+
+        function placeOrder() {
+            document.getElementById("pay-later-section").style.display = "none";
+            document.getElementById("order-confirmation").style.display = "block";
+        }
+
+        function returnToWebpage() {
+            window.location.href = "shop1_final.html"; // Replace with your shopping site URL
+        }
+    </script>
+</body>
+</html>

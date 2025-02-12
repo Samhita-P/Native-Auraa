@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guess the Word</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #4B0082; /* Indigo background */
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #FFD700; /* Gold color */
+        }
+
+        .game-container {
+            margin-top: 50px;
+        }
+
+        .word-container {
+            font-size: 2rem;
+            margin: 20px;
+            padding: 10px;
+            border: 2px solid #FFD700;
+            border-radius: 10px;
+            background-color: #6A5ACD; /* Slate Blue background */
+        }
+
+        .hint-btn, .check-btn {
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            background-color: #228B22; /* Green button */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        .hint-btn:hover, .check-btn:hover {
+            background-color: #006400; /* Darker green on hover */
+        }
+
+        .input-container {
+            margin: 20px 0;
+        }
+
+        .input-container input {
+            padding: 10px;
+            font-size: 1.2rem;
+            border: 2px solid #FFD700;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .input-container button {
+            padding: 10px 20px;
+            background-color: #8B4513; /* Brown button */
+            color: white;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .input-container button:hover {
+            background-color: #A0522D; /* Lighter brown on hover */
+        }
+
+        .result {
+            font-size: 1.5rem;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Guess the Word Game - Karnataka Tribes</h1>
+
+    <div class="game-container">
+        <div class="word-container" id="word-display">
+            <!-- The word will be displayed here -->
+            Word: <span id="word-to-guess">_ _ _ _ _</span>
+        </div>
+
+        <div class="input-container">
+            <input type="text" id="user-input" maxlength="1" placeholder="Enter a letter" />
+            <button onclick="checkGuess()">Guess</button>
+        </div>
+
+        <button class="hint-btn" onclick="showHint()">Show Hint</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        // Word list with hints related to Karnataka's tribal communities
+        const words = [
+            { word: "soliga", hint: "A tribal community in the Biligiriranga Hills known for their forest lifestyle." },
+            { word: "jenukuruba", hint: "A tribe known for their honey collection and living in the Western Ghats." },
+            { word: "lambani", hint: "A nomadic tribe known for their colorful clothing and embroidery." },
+            { word: "hakkipikki", hint: "A tribe with a deep connection to nature, primarily living in the forests." },
+            { word: "siddhi", hint: "An African-origin tribe residing in the forests of Karnataka." },
+            { word: "kadu kuruba", hint: "A community living in the forests of Coorg, known for their hunting and gathering traditions." },
+            { word: "gond", hint: "A tribal community scattered across central and eastern India, with a presence in Karnataka." },
+            { word: "yadava", hint: "A community primarily engaged in cattle rearing, found in several parts of Karnataka." },
+            { word: "bhil", hint: "A tribal community known for their colorful attire, living in the foothills of the Western Ghats." },
+            { word: "bega", hint: "A tribe residing in the forests of Uttara Kannada, skilled in agriculture and weaving." },
+            { word: "kumaraswamy", hint: "A tribe known for its semi-nomadic lifestyle, primarily found in the southern part of Karnataka." },
+            { word: "awadhi", hint: "A community known for its cattle herding and farming practices in Karnataka." },
+            { word: "naikda", hint: "A tribe found in the forests of Uttara Kannada, known for their traditional agriculture." },
+            { word: "sagara", hint: "A tribe known for their deep spiritual practices and connection to the local hills." },
+            { word: "gouda", hint: "A community from Karnataka that is involved in agriculture and cattle rearing." },
+            { word: "toda", hint: "A tribal community that inhabits the hilly regions of southern India." },
+            { word: "halakki", hint: "A tribe found in the forests of Uttara Kannada, skilled in agriculture and weaving." },
+            { word: "sena", hint: "A tribe known for its deep connection to the forest and their unique culture." },
+            { word: "badaga", hint: "A tribal community that resides in the hills of the Nilgiris, with a distinct dialect." },
+            { word: "koli", hint: "A fishing community that resides along the coastal regions of Karnataka." }
+        ];
+
+        let currentWordIndex = Math.floor(Math.random() * words.length);
+        let currentWord = words[currentWordIndex].word;
+        let wordToGuess = "_".repeat(currentWord.length).split("");
+        let guessedLetters = [];
+        let hintShown = false;
+
+        // Function to display the word with underscores and letters
+        function displayWord() {
+            document.getElementById("word-to-guess").textContent = wordToGuess.join(" ");
+        }
+
+        // Function to check the user's guess
+        function checkGuess() {
+            const userInput = document.getElementById("user-input").value.toLowerCase();
+            document.getElementById("user-input").value = "";
+
+            if (userInput && !guessedLetters.includes(userInput)) {
+                guessedLetters.push(userInput);
+
+                let correctGuess = false;
+                for (let i = 0; i < currentWord.length; i++) {
+                    if (currentWord[i] === userInput) {
+                        wordToGuess[i] = userInput;
+                        correctGuess = true;
+                    }
+                }
+
+                if (!correctGuess) {
+                    document.getElementById("result").textContent = "Incorrect guess!";
+                } else {
+                    document.getElementById("result").textContent = "Correct guess!";
+                }
+
+                displayWord();
+                checkWin();
+            } else {
+                document.getElementById("result").textContent = "Please enter a new letter!";
+            }
+        }
+
+        // Function to check if the user has won
+        function checkWin() {
+            if (wordToGuess.join("") === currentWord) {
+                document.getElementById("result").textContent = "Congratulations! You've guessed the word!";
+            }
+        }
+
+        // Function to show the hint
+        function showHint() {
+            if (!hintShown) {
+                alert("Hint: " + words[currentWordIndex].hint);
+                hintShown = true;
+            } else {
+                alert("Hint already shown!");
+            }
+        }
+
+        // Initialize the game by displaying the word
+        displayWord();
+    </script>
+
+</body>
+</html>

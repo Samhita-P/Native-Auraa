@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Native Auraa - Login/Signup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #8B4513;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #fff;
+        }
+        .container {
+            background-color: #4B2E2B;
+            padding: 30px;
+            border-radius: 8px;
+            width: 300px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 5px;
+            border: 1px solid #8B4513;
+        }
+        .btn {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .btn-signup {
+            background-color: #A0522D;
+            color: #fff;
+        }
+        .btn-login {
+            background-color: #8B4513;
+            color: #fff;
+        }
+        .toggle-link {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            cursor: pointer;
+            color: #FFD700;
+            text-decoration: underline;
+        }
+        .checkbox {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .checkbox input {
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="formContainer">
+    <h2>Native Auraa</h2>
+    <form id="signupForm" style="display: none;" onsubmit="event.preventDefault(); signup();">
+        <input type="text" class="input-field" id="name" placeholder="Full Name" required>
+        <input type="email" class="input-field" id="email" placeholder="Email" required>
+        <input type="tel" class="input-field" id="phone" placeholder="Phone Number" required>
+        <input type="password" class="input-field" id="password" placeholder="Password" required>
+        <div class="checkbox">
+            <input type="checkbox" id="rememberMeSignup">
+            <label for="rememberMeSignup">Save this for future use</label>
+        </div>
+        <button type="button" class="btn btn-signup" onclick="signup()">Sign Up</button>
+        <span class="toggle-link" onclick="toggleForms()">Already have an account? Login</span>
+    </form>
+
+    <form id="loginForm" onsubmit="event.preventDefault(); login();">
+        <input type="text" class="input-field" id="loginEmailPhone" placeholder="Email or Phone Number" required>
+        <input type="password" class="input-field" id="loginPassword" placeholder="Password" required>
+        <div class="checkbox">
+            <input type="checkbox" id="rememberMeLogin">
+            <label for="rememberMeLogin">Remember me</label>
+        </div>
+        <button onclick="login()">Login</button>
+        <span class="toggle-link" onclick="toggleForms()">New user? Sign Up</span>
+    </form>
+</div>
+
+<script>
+    // Check if a user is already logged in
+    function checkLoginStatus() {
+        const loggedInUser = localStorage.getItem('loggedInUser');
+        if (loggedInUser) {
+            // If logged in, redirect to shopping page
+            window.location.href = 'finalmini.html';
+        }
+    }
+
+    // Toggle between login and signup forms
+    function toggleForms() {
+        const loginForm = document.getElementById('loginForm');
+        const signupForm = document.getElementById('signupForm');
+        loginForm.style.display = loginForm.style.display === 'none' ? 'block' : 'none';
+        signupForm.style.display = signupForm.style.display === 'none' ? 'block' : 'none';
+    }
+
+    // Signup function
+    function signup() {
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+        const password = document.getElementById('password').value;
+
+        // Save user data in localStorage
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        users.push({ name, email, phone, password });
+        localStorage.setItem('users', JSON.stringify(users));
+
+        alert('Signup successful! You can now log in.');
+
+        // Clear fields and switch to login form
+        document.getElementById('signupForm').reset();
+        toggleForms();
+    }
+
+    // Login function
+    function login() {
+        const loginEmailPhone = document.getElementById('loginEmailPhone').value;
+        const loginPassword = document.getElementById('loginPassword').value;
+
+        // Retrieve users data from localStorage
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        const user = users.find(user => 
+            (user.email === loginEmailPhone || user.phone === loginEmailPhone) && user.password === loginPassword
+        );
+
+        if (user) {
+            console.log('Login successful! Redirecting to finalmini.html...');
+            alert('Login successful! Redirecting...');
+            // Store the logged-in user's data in localStorage
+            localStorage.setItem('loggedInUser', JSON.stringify(user));
+
+            // Redirect to shopping page
+            window.location.href = 'finalmini.html';
+        } else {
+            console.log('Login failed. Invalid email/phone or password.');
+            alert('Invalid email/phone or password. Please try again.');
+        }
+    }
+
+    // Check login status when the page is loaded
+</script>
+
+<script src="nativeaura.js"></script>
+<script src="acc.js"></script>
+<script src="script.js"></script>
+<script src="server.js"></script>
+
+</body>
+</html>

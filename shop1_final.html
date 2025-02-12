@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+<title>Tribal Product Shopping</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Helvetica', 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+        }
+
+        header {
+            padding: 20px;
+            background-color: #8B4513;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        header .wishlist-cart-buttons {
+            display: flex;
+        }
+
+        header button {
+            background-color: white;
+            color: #8B4513;
+            border: none;
+            padding: 10px 20px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .product {
+            background-color: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .product img, .product-details img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+        }
+        .product button {
+            background-color: #8B4513;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .product-details {
+            display: none;
+            padding: 20px;
+            background-color: white;
+            text-align: left;
+            margin: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-page, .wishlist-page, .checkout-page, .payment-page, .order-confirmation-page {
+            display: none;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+            border-collapse: collapse;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .total {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .proceed-btn, .confirm-btn, .continue-btn, .payment-btn {
+            display: block;
+            margin: 20px 0;
+            padding: 10px;
+            background-color: #8B4513;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .payment-btn {
+            padding: 15px 30px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            background-color: #8B4513;
+        }
+        .payment-btn:hover {
+            background-color: #8B4513;
+        }
+        #netbanking-options {
+            display: none; /* Hidden by default */
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Tribal Products</h1>
+    <div class="wishlist-cart-buttons">
+        <button onclick="showWishlist()">Wishlist</button>
+        <button onclick="showCart()">Cart</button>
+        <button onclick="window.location.href='account.html'">Account</button>
+    </div>
+</header>
+
+<button class="back-to-homepage" onclick="window.location.href='modified_miniproject.html'">Back to Homepage</button>
+
+
+<!-- Product Grid -->
+<div class="product-grid" id="product-grid">
+<!-- Product 1 -->
+    <div class="product" onclick="viewProductDetails(1)">
+        <img src="https://i.postimg.cc/X7W6NN2P/Jenukuruba-Wild-Forest-Honey.jpg" alt="Jenukuruba Wild Forest Honey">
+        <h3>Jenukuruba Wild Forest Honey</h3>
+        <p>₹300 per 500g</p>
+        <button onclick="addToWishlist(1, 'Jenukuruba Wild Forest Honey', 300)">Add to Wishlist</button>
+        <button onclick="addToCart(1, 'Jenukuruba Wild Forest Honey', 300)">Add to Cart</button>
+    </div>
+
+    <!-- Repeat for 20 products (Example for 2 items here) -->
+
+    <div class="product" onclick="viewProductDetails(2)">
+        <img src="https://i.postimg.cc/GmMWjFc0/Hakki-Pikki-Beaded-Necklace-Set.jpg" alt="Hakki-Pikki Beaded Necklace Set">
+        <h3>Hakki-Pikki Beaded Necklace Set</h3>
+        <p>₹500</p>
+        <button onclick="addToWishlist(2, 'Hakki-Pikki Beaded Necklace Set', 500)">Add to Wishlist</button>
+        <button onclick="addToCart(2, 'Hakki-Pikki Beaded Necklace Set', 500)">Add to Cart</button>
+    </div>
+
+        <div class="product" onclick="viewProductDetails(3)">
+        <img src="https://i.postimg.cc/9M9sVsyV/Lambani-Mirror-Work-Ghagra-Skirt.jpg" alt="Lambani Mirror Work Ghagra (Skirt)">
+        <h3>Lambani Mirror Work Ghagra (Skirt)</h3>
+        <p>₹2000</p>
+        <button onclick="addToWishlist(3, 'Lambani Mirror Work Ghagra (Skirt)', 2000)">Add to Wishlist</button>
+        <button onclick="addToCart(3, 'Lambani Mirror Work Ghagra (Skirt)', 2000)">Add to Cart</button>
+    </div>
+
+    <!-- Repeat for 20 products (Example for 2 items here) -->
+
+    <div class="product" onclick="viewProductDetails(4)">
+        <img src="https://i.postimg.cc/CxKtdRbc/Soliga-Sandalwood-Elephant-Statue.webp" alt="Soliga Sandalwood Elephant Statue">
+        <h3>Soliga Sandalwood Elephant Statue</h3>
+        <p>₹1,500 (small size)</p>
+        <button onclick="addToWishlist(4, 'Soliga Sandalwood Elephant Statue', 1,500)">Add to Wishlist</button>
+        <button onclick="addToCart(4, 'Soliga Sandalwood Elephant Statue', 1,500)">Add to Cart</button>
+    </div>
+
+        <div class="product" onclick="viewProductDetails(5)">
+        <img src="https://i.postimg.cc/jSk1fRXt/Kadu-Kuruba-Terracotta-Water-Pot.webp" alt="Kadu Kuruba Terracotta Water Pot">
+        <h3>Kadu Kuruba Terracotta Water Pot</h3>
+        <p>₹350</p>
+        <button onclick="addToWishlist(5, 'Kadu Kuruba Terracotta Water Pot', 350)">Add to Wishlist</button>
+        <button onclick="addToCart(5, 'Kadu Kuruba Terracotta Water Pot', 350)">Add to Cart</button>
+    </div>
+
+    <!-- Repeat for 20 products (Example for 2 items here) -->
+
+    <div class="product" onclick="viewProductDetails(6)">
+        <img src="https://i.postimg.cc/nLD3QBrG/Soliga-Bamboo-Storage-Basket.jpg" alt="Soliga Bamboo Storage Basket">
+        <h3>Soliga Bamboo Storage Basket</h3>
+        <p>₹250</p>
+        <button onclick="addToWishlist(6, 'Soliga Bamboo Storage Basket', 250)">Add to Wishlist</button>
+        <button onclick="addToCart(6, 'Soliga Bamboo Storage Basket', 250)">Add to Cart</button>
+    </div>
+
+        <div class="product" onclick="viewProductDetails(7)">
+        <img src="https://i.postimg.cc/pr2C7SZs/Lambani-Handwoven-Cotton-Saree.jpg" alt="Lambani Handwoven Cotton Saree">
+        <h3>Lambani Handwoven Cotton Saree</h3>
+        <p>₹1800</p>
+        <button onclick="addToWishlist(7, 'Lambani Handwoven Cotton Saree', 1800)">Add to Wishlist</button>
+        <button onclick="addToCart(7, 'Lambani Handwoven Cotton Saree', 1800)">Add to Cart</button>
+    </div>
+
+    <!-- Repeat for 20 products (Example for 2 items here) -->
+
+    <div class="product" onclick="viewProductDetails(8)">
+        <img src="https://i.postimg.cc/kXYs1fty/Soliga-Wooden-Toy-Set-Traditional-Figures.webp" alt="Soliga Wooden Toy Set (Traditional Figures)">
+        <h3>Soliga Wooden Toy Set (Traditional Figures)</h3>
+        <p>₹600</p>
+        <button onclick="addToWishlist(8, 'Soliga Wooden Toy Set (Traditional Figures)', 600)">Add to Wishlist</button>
+        <button onclick="addToCart(8, 'Soliga Wooden Toy Set (Traditional Figures)', 600)">Add to Cart</button>
+    </div>
+
+        <div class="product" onclick="viewProductDetails(9)">
+        <img src="https://i.postimg.cc/JhVbvg7j/Kadu-Kuruba-Wooden-Elephant-Carving.webp" alt="Kadu Kuruba Wooden Elephant Carving">
+        <h3>Kadu Kuruba Wooden Elephant Carving</h3>
+        <p>₹1200</p>
+        <button onclick="addToWishlist(9, 'Kadu Kuruba Wooden Elephant Carving', 1200)">Add to Wishlist</button>
+        <button onclick="addToCart(9, 'Kadu Kuruba Wooden Elephant Carving', 1200)">Add to Cart</button>
+    </div>
+
+    <!-- Repeat for 20 products (Example for 2 items here) -->
+
+    <div class="product" onclick="viewProductDetails(10)">
+        <img src="https://i.postimg.cc/N061c4LS/Gonda-Leather-Kolhapuri-Sandals.jpg" alt="Gonda Leather Kolhapuri Sandals">
+        <h3>Gonda Leather Kolhapuri Sandals</h3>
+        <p>₹800</p>
+        <button onclick="addToWishlist(10, 'Gonda Leather Kolhapuri Sandals', 800)">Add to Wishlist</button>
+        <button onclick="addToCart(10, 'Gonda Leather Kolhapuri Sandals', 800)">Add to Cart</button>
+    </div>
+
+        <div class="product" onclick="viewProductDetails(11)">
+        <img src="https://i.postimg.cc/JnKZyzNQ/Soliga-Natural-Indigo-Dye.jpg" alt="Soliga Natural Indigo Dye">
+        <h3>Soliga Natural Indigo Dye</h3>
+        <p>₹400 per 100g</p>
+        <button onclick="addToWishlist(11, 'Soliga Natural Indigo Dye', 400)">Add to Wishlist</button>
+        <button onclick="addToCart(11, 'Soliga Natural Indigo Dye', 400)">Add to Cart</button>
+    </div>
+
+    <!-- Repeat for 20 products (Example for 2 items here) -->
+
+    <div class="product" onclick="viewProductDetails(12)">
+        <img src="https://i.postimg.cc/KjHTNpsk/Lambani-Silver-Anklet.jpg" alt="Lambani Silver Anklet">
+        <h3>Lambani Silver Anklet</h3>
+        <p>₹1500</p>
+        <button onclick="addToWishlist(12, 'Lambani Silver Anklet', 1500)">Add to Wishlist</button>
+        <button onclick="addToCart(12, 'Lambani Silver Anklet', 1500)">Add to Cart</button>
+    </div>
+
+        <div class="product" onclick="viewProductDetails(13)">
+        <img src="https://i.postimg.cc/qMWn6Y3W/Siddhi-Tribal-Warli-Painting-Canvas.jpg" alt="Siddhi Tribal Warli Painting (Canvas)">
+        <h3>Siddhi Tribal Warli Painting (Canvas)</h3>
+        <p>₹2500</p>
+        <button onclick="addToWishlist(13, 'Siddhi Tribal Warli Painting (Canvas)', 2500)">Add to Wishlist</button>
+        <button onclick="addToCart(13, 'Siddhi Tribal Warli Painting (Canvas)', 2500)">Add to Cart</button>
+    </div>
+
+    <!-- Repeat for 20 products (Example for 2 items here) -->
+
+    <div class="product" onclick="viewProductDetails(14)">
+        <img src="https://i.postimg.cc/NFSyT95R/Soliga-Wild-Jamun-Berries.webp" alt="Soliga Wild Jamun Berries">
+        <h3>Soliga Wild Jamun Berries</h3>
+        <p>₹150 per 250g</p>
+        <button onclick="addToWishlist(14, 'Soliga Wild Jamun Berries', 150)">Add to Wishlist</button>
+        <button onclick="addToCart(14, 'Soliga Wild Jamun Berries', 150)">Add to Cart</button>
+    </div>
+
+        <div class="product" onclick="viewProductDetails(15)">
+        <img src="https://i.postimg.cc/rw60w46k/Soliga-Herbal-Pain-Relief-Balm.webp" alt="Soliga Herbal Pain Relief Balm">
+        <h3>Soliga Herbal Pain Relief Balm</h3>
+        <p>₹200 per 50g</p>
+        <button onclick="addToWishlist(15, 'Soliga Herbal Pain Relief Balm', 200)">Add to Wishlist</button>
+        <button onclick="addToCart(15, 'Soliga Herbal Pain Relief Balm', 200)">Add to Cart</button>
+    </div>
+
+    <!-- Repeat for 20 products (Example for 2 items here) -->
+
+    <div class="product" onclick="viewProductDetails(16)">
+        <img src="https://i.postimg.cc/qvXRBZXs/Kadu-Kuruba-Terracotta-Bull-Statue.jpg" alt="Kadu Kuruba Terracotta Bull Statue">
+        <h3>Kadu Kuruba Terracotta Bull Statue</h3>
+        <p>₹500</p>
+        <button onclick="addToWishlist(16, 'Kadu Kuruba Terracotta Bull Statue', 500)">Add to Wishlist</button>
+        <button onclick="addToCart(16, 'Kadu Kuruba Terracotta Bull Statue', 500)">Add to Cart</button>
+    </div>
+
+        <div class="product" onclick="viewProductDetails(17)">
+        <img src="https://i.postimg.cc/xdfdXytW/Soliga-Bamboo-Cane-Chair.jpg" alt="Soliga Bamboo Cane Chair">
+        <h3>Soliga Bamboo Cane Chair</h3>
+        <p>₹1800</p>
+        <button onclick="addToWishlist(17, 'Soliga Bamboo Cane Chair', 1800)">Add to Wishlist</button>
+        <button onclick="addToCart(17, 'Soliga Bamboo Cane Chair', 1800)">Add to Cart</button>
+    </div>
+
+    <!-- Repeat for 20 products (Example for 2 items here) -->
+
+    <div class="product" onclick="viewProductDetails(18)">
+        <img src="https://i.postimg.cc/fb8RmtPk/Yerava-Bamboo-Flute.jpg" alt="Yerava Bamboo Flute">
+        <h3>Yerava Bamboo Flute</h3>
+        <p>₹400</p>
+        <button onclick="addToWishlist(18, 'Yerava Bamboo Flute', 400)">Add to Wishlist</button>
+        <button onclick="addToCart(18, 'Yerava Bamboo Flute', 400)">Add to Cart</button>
+    </div>
+
+        <div class="product" onclick="viewProductDetails(19)">
+        <img src="https://i.postimg.cc/rmzFJy6j/Soliga-Ragi-Millet-Organic.jpg" alt="Soliga Ragi Millet (Organic)">
+        <h3>Soliga Ragi Millet (Organic)</h3>
+        <p>₹60 per kg</p>
+        <button onclick="addToWishlist(19, 'Soliga Ragi Millet (Organic)', 60)">Add to Wishlist</button>
+        <button onclick="addToCart(19, 'Soliga Ragi Millet (Organic)', 60)">Add to Cart</button>
+    </div>
+
+    <!-- Repeat for 20 products (Example for 2 items here) -->
+
+    <div class="product" onclick="viewProductDetails(20)">
+        <img src="https://i.postimg.cc/brty76w2/Hakki-Pikki-Tribal-Knife-with-Wooden-Handle.jpg" alt="Hakki-Pikki Tribal Knife with Wooden Handle">
+        <h3>Hakki-Pikki Tribal Knife with Wooden Handle</h3>
+        <p>₹700</p>
+        <button onclick="addToWishlist(20, 'Hakki-Pikki Tribal Knife with Wooden Handle', 700)">Add to Wishlist</button>
+        <button onclick="addToCart(20, 'Hakki-Pikki Tribal Knife with Wooden Handle', 700)">Add to Cart</button>
+    </div>
+</div>
+
+<!-- Product Details Section -->
+<div class="product-details" id="product-details">
+    <h2 id="product-name">Product Name</h2>
+    <img id="product-image" src="" alt="">
+    <p id="product-price">₹</p>
+    <p id="product-description">Description: </p>
+    <p>User Reviews: <span id="user-reviews">⭐⭐⭐⭐⭐</span></p>
+    <button onclick="addToCart(productId, productName, productPrice)">Add to Cart</button>
+    <button onclick="goBackToProducts()">Back to Products</button>
+</div>
+
+<!-- Cart Page -->
+<div class="cart-page" id="cart-page">
+    <h2>Your Cart</h2>
+    <table id="cart-items">
+        <!-- Cart items will be dynamically inserted here -->
+    </table>
+    <p class="total" id="cart-total"></p>
+    <button class="proceed-btn" onclick="checkout()">Proceed to Checkout</button>
+</div>
+
+<!-- Wishlist Page -->
+<div class="wishlist-page" id="wishlist-page">
+    <h2>Your Wishlist</h2>
+    <table id="wishlist-items">
+        <!-- Wishlist items will be dynamically inserted here -->
+    </table>
+</div>
+
+<!-- Checkout Page -->
+<!-- Modified Checkout Page -->
+<div class="checkout-page" id="checkout-page">
+    <h2>Enter Delivery Address</h2>
+    <form id="address-form">
+        <label for="pincode">Pincode:</label><br>
+        <input type="text" id="pincode" name="pincode" required><br><br>
+
+        <label for="address">Address (House No, Building, Street, Area):</label><br>
+        <input type="text" id="address" name="address" required><br><br>
+
+        <label for="locality">Locality/Town:</label><br>
+        <input type="text" id="locality" name="locality" required><br><br>
+
+        <label for="city">City/District:</label><br>
+        <input type="text" id="city" name="city" required><br><br>
+
+        <label for="state">State:</label><br>
+        <input type="text" id="state" name="state" required><br><br>
+
+        <label for="address-type">Save address as:</label><br>
+        <input type="radio" id="home" name="address-type" value="Home" checked>
+        <label for="home">Home</label><br>
+        <input type="radio" id="office" name="address-type" value="Office">
+        <label for="office">Office</label><br><br>
+
+        <button class="continue-btn" onclick="confirmOrder(event)">Continue</button>
+    </form>
+</div>
+
+
+<!-- Payment Page -->
+<!-- Payment Page -->
+<div class="payment-page" id="payment-page">
+    <h2>Choose Payment Method</h2>
+
+    <!-- Main Payment Method Buttons -->
+    <button class="payment-btn" onclick="showUPIOptions()">UPI</button>
+    <button class="payment-btn" onclick="showNetBankingOptions()">Net Banking</button>
+    <button class="payment-btn" onclick="showCashOnDelivery()">Cash on Delivery</button>
+    <button class="payment-btn" onclick="showCardOptions()">Credit/Debit Card</button>
+    <button class="payment-btn" onclick="processPayment('paylater')">Pay Later</button>
+    <button class="payment-btn" onclick="processPayment('emi')">EMI</button>
+
+    <!-- UPI Options -->
+    <!-- UPI Options Section (Initially Hidden) -->
+<div id="upi-options" style="display:none;">
+    <h3>Scan the QR Code to Pay:</h3>
+    <!-- QR Code for UPI Payment -->
+    <div id="qr-code" style="text-align: center;">
+        <img src="your-qr-code-image-url.png" alt="QR Code"> <!-- Replace with your actual QR code image -->
+    </div>
+</div>
+
+
+    <!-- Net Banking Options -->
+   <div id="netbanking-options">
+    <h3>Select Bank:</h3>
+    <button class="payment-btn" onclick="processPayment('axis')">Axis Bank</button>
+    <button class="payment-btn" onclick="processPayment('hdfc')">HDFC Bank</button>
+    <button class="payment-btn" onclick="processPayment('icici')">ICICI Bank</button>
+    <button class="payment-btn" onclick="processPayment('kotak')">Kotak Bank</button>
+    <button class="payment-btn" onclick="processPayment('sbi')">SBI</button>
+</div>
+
+<script>
+// Function to show the bank options when Net Banking is clicked
+function showNetBankingOptions() {
+    document.getElementById("netbanking-options").style.display = "block";
+}
+
+// Function to open the respective bank's payment link in a new tab
+function processPayment(bank) {
+    let url = "";
+
+    // Determine the URL based on the selected bank
+    switch (bank) {
+        case "axis":
+            url = "https://www.axisbank.com/online-banking";
+            break;
+        case "hdfc":
+            url = "https://www.hdfcbank.com/personal/payments";
+            break;
+        case "icici":
+            url = "https://www.icicibank.com/online-banking";
+            break;
+        case "kotak":
+            url = "https://www.kotak.com/en/digital-banking";
+            break;
+        case "sbi":
+            url = "https://www.sbi.co.in/web/online-banking";
+            break;
+        default:
+            console.error("Invalid bank specified.");
+            return;
+    }
+
+    // Open the bank link in a new tab
+    if (url) {
+        window.open(url, "_blank");
+    }
+}
+</script>
+
+    <!-- Credit/Debit Card Form -->
+    <div id="card-options" style="display:none;">
+        <h3>Enter Card Details:</h3>
+        <label for="card-number">Card Number:</label><br>
+        <input type="text" id="card-number" name="card-number" required><br><br>
+        
+        <label for="card-name">Name on Card:</label><br>
+        <input type="text" id="card-name" name="card-name" required><br><br>
+
+        <label for="valid-thru">Valid Thru (MM/YY):</label><br>
+        <input type="text" id="valid-thru" name="valid-thru" required><br><br>
+
+        <label for="cvv">CVV:</label><br>
+        <input type="text" id="cvv" name="cvv" required><br><br>
+        
+        <button class="payment-btn" onclick="processPayment('creditcard')">Submit Payment</button>
+    </div>
+</div>
+
+
+<!-- Order Confirmation Page -->
+<div class="order-confirmation-page" id="order-confirmation-page">
+    <h2>Order Confirmation</h2>
+    <p>Your order has been placed successfully!</p>
+    <p>Items will be delivered in 8 days.</p>
+    <button class="payment-btn" onclick="returnToWebpage()">Return to Webpage</button>
+</div>
+
+<script>
+    let cart = [];
+    let wishlist = [];
+    let productId, productName, productPrice;
+
+    // Define a list of product descriptions and user reviews
+    const productData = {
+        1: {
+            name: "Jenukuruba Wild Forest Honey",
+            price: 300,
+            description: "This organic honey is harvested by the Jenukuruba tribe from the forests of Karnataka. It’s rich in flavor and known for its natural health benefits.",
+            userReviews: [
+                "⭐⭐⭐⭐⭐ Pure, authentic taste. Helps with my seasonal allergies!", 
+                "⭐⭐⭐⭐⭐ Amazing honey, great taste!",
+                "⭐⭐⭐⭐ I love the natural sweetness.",
+                "⭐⭐⭐⭐⭐ Perfect for my herbal tea!"
+                ],
+            image: "https://i.postimg.cc/X7W6NN2P/Jenukuruba-Wild-Forest-Honey.jpg"
+        },
+        2: {
+            name: "Hakki-Pikki Beaded Necklace Set",
+            price: 500,
+            description: "Handcrafted by the Hakki-Pikki tribe, this vibrant necklace set features intricate beadwork, perfect for adding a pop of color to any outfit.",
+             userReviews: [
+            "⭐⭐⭐⭐ Very elegant and stylish.",
+            "⭐⭐⭐⭐⭐ The design is amazing, great craftsmanship.",
+            "⭐⭐⭐⭐ I bought it as a gift, and they loved it!"
+        ],
+            image: "https://i.postimg.cc/GmMWjFc0/Hakki-Pikki-Beaded-Necklace-Set.jpg"
+        },
+        // Add more products here...
+         3: {
+            name: " Lambani Mirror Work Ghagra (Skirt)",
+            price: 2000,
+            description: "This colorful, handcrafted ghagra is embellished with intricate mirror work and embroidery, a traditional attire of the Lambani tribe.",
+            userReviews: [
+            "⭐⭐⭐⭐⭐ This ghagra is stunning! The mirror work is intricate and shines beautifully. Perfect for festive occasions!",
+            "⭐⭐⭐⭐ I wore this skirt to a family wedding, and it was a hit! The quality is fantastic, and it fits perfectly.",
+            "⭐⭐⭐⭐⭐ Absolutely love this ghagra! The fabric is soft, and the design is simply gorgeous. Highly recommend!"
+        ],          
+            image: "https://i.postimg.cc/9M9sVsyV/Lambani-Mirror-Work-Ghagra-Skirt.jpg"
+        },
+         4: {
+            name: "Soliga Sandalwood Elephant Statue",
+            price: 1500,
+            description: "Carved by the Soliga tribe, this sandalwood elephant statue is a perfect home décor item, known for its pleasant aroma and intricate detailing.",
+           userReviews: [
+            "⭐⭐⭐⭐⭐ A beautiful addition to my home decor! The craftsmanship is amazing, and the sandalwood scent is calming.",
+            "⭐⭐⭐⭐ This elephant statue is exquisite! It has a lovely finish and is a great conversation starter.",
+            "⭐⭐⭐⭐⭐ I bought this as a gift, and the recipient loved it! The detail is impressive, and it looks great on display."
+        ],
+            image: "https://i.postimg.cc/CxKtdRbc/Soliga-Sandalwood-Elephant-Statue.webp"
+        },
+         5: {
+            name: "Kadu Kuruba Terracotta Water Pot",
+            price: 350,
+            description: "A traditional earthenware pot crafted by the Kadu Kuruba tribe, perfect for storing and cooling water naturally.",
+            userReviews: [
+            "⭐⭐⭐⭐⭐ This pot is not only functional but also beautiful! It keeps my water cool and looks great in my kitchen.",
+            "⭐⭐⭐⭐ I love this terracotta pot! It’s perfect for my indoor plants. The design is rustic and charming.",
+            "⭐⭐⭐⭐ Great quality and very practical! I use it daily, and it adds a traditional touch to my home."
+        ],            image: "https://i.postimg.cc/jSk1fRXt/Kadu-Kuruba-Terracotta-Water-Pot.webp"
+        },
+         6: {
+            name: "Soliga Bamboo Storage Basket",
+            price: 250,
+            description: "This handwoven bamboo basket is durable and eco-friendly, made by the Soliga tribe, ideal for storage or home décor.",
+            userReviews: [
+            "⭐⭐⭐⭐⭐ This basket is perfect for organizing my craft supplies. It’s sturdy and has a lovely natural look.",
+            "⭐⭐⭐⭐ I use this basket in my living room for magazines. It’s both functional and stylish!",
+            "⭐⭐⭐⭐⭐ Beautifully crafted! This bamboo basket adds a touch of nature to my home. I plan to buy more!"
+        ],
+            image: "https://i.postimg.cc/nLD3QBrG/Soliga-Bamboo-Storage-Basket.jpg"
+        },
+         7: {
+            name: "Lambani Handwoven Cotton Saree",
+            price: 1800,
+            description: "A vibrant cotton saree featuring Lambani embroidery, blending traditional motifs with a modern touch. Lightweight and perfect for any occasion.",
+             userReviews: [
+            "⭐⭐⭐⭐⭐ This saree is gorgeous! The handwoven patterns are stunning, and it drapes beautifully.",
+            "⭐⭐⭐⭐ I wore this saree to a family function, and everyone complimented me! It’s soft and comfortable.",
+            "⭐⭐⭐⭐⭐ I’m in love with this saree! The colors are vibrant, and the quality is top-notch. A must-have!"
+        ],
+            image: "https://i.postimg.cc/pr2C7SZs/Lambani-Handwoven-Cotton-Saree.jpg"
+        },
+         8: {
+            name: " Soliga Wooden Toy Set (Traditional Figures)",
+            price: 600,
+            description: "Hand-carved by the Soliga tribe, these wooden toys depict traditional figures and animals, perfect for children or as decorative pieces.",
+            userReviews: [
+            "⭐⭐⭐⭐⭐ My kids love this toy set! The figures are well-made and encourage imaginative play.",
+            "⭐⭐⭐⭐ Great quality and safe for children! My son plays with it every day. Highly recommend!",
+            "⭐⭐⭐⭐⭐ This wooden toy set is a hit in our house! It’s durable and beautifully crafted."
+        ],
+            image: "https://i.postimg.cc/kXYs1fty/Soliga-Wooden-Toy-Set-Traditional-Figures.webp"
+        },
+         9: {
+            name: "Kadu Kuruba Wooden Elephant Carving",
+            price: 1200,
+            description: "This wooden elephant carving showcases the skilled craftsmanship of the Kadu Kuruba tribe, ideal for home décor or gifting.",
+            userReviews: [
+            "⭐⭐⭐⭐⭐ This carving is a stunning piece of art! The detail is incredible, and it looks great on my shelf.",
+            "⭐⭐⭐⭐ I bought this as a gift, and it was well received! A beautiful representation of craftsmanship.",
+            "⭐⭐⭐⭐⭐ An exquisite carving! It adds a unique touch to my living room decor. Very pleased with my purchase!"
+        ],
+            image: "https://i.postimg.cc/JhVbvg7j/Kadu-Kuruba-Wooden-Elephant-Carving.webp"
+        },
+         10: {
+            name: "Gonda Leather Kolhapuri Sandals",
+            price: 800,
+            description: "These traditional sandals are made from durable leather by the Gonda tribe, offering comfort and style with a rustic charm.",
+            userReviews: [
+            "⭐⭐⭐⭐⭐ These sandals are incredibly comfortable! I can wear them all day without any issues.",
+            "⭐⭐⭐⭐ Stylish and well-made! They go well with both casual and ethnic outfits.",
+            "⭐⭐⭐⭐⭐ I love these Kolhapuri sandals! The quality is excellent, and they are perfect for summer wear."
+        ],            image: "https://i.postimg.cc/N061c4LS/Gonda-Leather-Kolhapuri-Sandals.jpg"
+        },
+         11: {
+            name: "Soliga Natural Indigo Dye",
+            price: 400,
+            description: "Extracted from forest plants, this indigo dye is eco-friendly and used for coloring textiles. Sourced from the Soliga tribe’s natural methods.",
+            userReviews: [
+            "⭐⭐⭐⭐⭐ This indigo dye is fantastic! I used it for my fabric projects, and the color turned out beautifully.",
+            "⭐⭐⭐⭐ Great quality and vibrant color! Perfect for my home dyeing experiments.",
+            "⭐⭐⭐⭐⭐ Highly recommend this natural dye! It’s easy to use and gives a beautiful shade."
+        ],
+            image: "https://i.postimg.cc/JnKZyzNQ/Soliga-Natural-Indigo-Dye.jpg"
+        },
+         12: {
+            name: "Lambani Silver Anklet",
+            price: 1500,
+            description: "This intricately designed silver anklet is handmade by the Lambani tribe, reflecting their rich jewelry-making traditions.",
+            userReviews: [
+            "⭐⭐⭐⭐⭐ This anklet is stunning! The design is intricate, and it fits perfectly.",
+            "⭐⭐⭐⭐ I get so many compliments when I wear this! It’s elegant and goes with everything.",
+            "⭐⭐⭐⭐⭐ A beautiful piece of jewelry! Great quality and very comfortable to wear."
+        ],
+            image: "https://i.postimg.cc/KjHTNpsk/Lambani-Silver-Anklet.jpg"
+        },
+         13: {
+            name: "Siddhi Tribal Warli Painting (Canvas)",
+            price: 2500,
+            description: "This canvas painting depicts traditional Warli art, made by the Siddhi tribe, portraying daily life and cultural scenes in a tribal style.",
+            userReviews: [
+            "⭐⭐⭐⭐⭐ This painting is a beautiful representation of tribal culture! It looks amazing in my living room.",
+            "⭐⭐⭐⭐ The detail in this Warli painting is incredible! It tells a story and adds character to my home.",
+            "⭐⭐⭐⭐⭐ Absolutely love this artwork! It's vibrant and eye-catching."
+        ],
+            image: "https://i.postimg.cc/qMWn6Y3W/Siddhi-Tribal-Warli-Painting-Canvas.jpg"
+        },
+         14: {
+            name: "Soliga Wild Jamun Berries",
+            price: 150,
+            description: "These fresh wild jamun berries are sustainably harvested by the Soliga tribe, known for their tangy flavor and health benefits.",
+             userReviews: [
+            "⭐⭐⭐⭐⭐ These jamun berries are delicious and fresh! Perfect for snacking or adding to smoothies.",
+            "⭐⭐⭐⭐ Great quality and packed with flavor! I love incorporating them into my diet.",
+            "⭐⭐⭐⭐⭐ A fantastic find! These berries are not only tasty but also nutritious."
+        ],
+            image: "https://i.postimg.cc/NFSyT95R/Soliga-Wild-Jamun-Berries.webp"
+        },
+         15: {
+            name: "Soliga Herbal Pain Relief Balm",
+            price: 200,
+            description: "This herbal balm is made from natural ingredients by the Soliga tribe, providing relief from muscle aches and joint pain.",
+            userReviews: [
+            "⭐⭐⭐⭐⭐ This balm is a miracle worker! It relieves my muscle pain almost instantly.",
+            "⭐⭐⭐⭐ Great product! I use it for headaches and it really helps.",
+            "⭐⭐⭐⭐⭐ I love this herbal balm! It has a pleasant scent and works effectively."
+        ],
+            image: "https://i.postimg.cc/rw60w46k/Soliga-Herbal-Pain-Relief-Balm.webp"
+        },
+         16: {
+            name: "Kadu Kuruba Terracotta Bull Statue",
+            price: 500,
+            description: "A hand-crafted terracotta bull statue from the Kadu Kuruba tribe, perfect for decorating homes or offices with a traditional touch.",
+            userReviews: [
+            "⭐⭐⭐⭐⭐ This bull statue is a stunning piece! The craftsmanship is remarkable, and it adds a touch of culture to my home decor.",
+            "⭐⭐⭐⭐ Beautifully made and detailed! It's a perfect gift for art lovers and looks great on my shelf.",
+            "⭐⭐⭐⭐⭐ Love the cultural significance behind this piece. It’s not just a statue; it tells a story."
+        ],
+            image: "https://i.postimg.cc/qvXRBZXs/Kadu-Kuruba-Terracotta-Bull-Statue.jpg"
+        },
+         17: {
+            name: "Soliga Bamboo Cane Chair",
+            price: 1800,
+            description: "This sturdy, eco-friendly bamboo cane chair is crafted by the Soliga tribe, blending style with sustainability.",
+            userReviews: [
+            "⭐⭐⭐⭐⭐ This bamboo chair is incredibly comfortable! I use it on my porch for reading and relaxing.",
+            "⭐⭐⭐⭐ Great quality and design! It’s sturdy and looks beautiful in my garden.",
+            "⭐⭐⭐⭐⭐ Perfect for outdoor lounging! It’s lightweight and easy to move around."
+        ],
+            image: "https://i.postimg.cc/xdfdXytW/Soliga-Bamboo-Cane-Chair.jpg"
+        },
+         18: {
+            name: "Yerava Bamboo Flute",
+            price: 400,
+            description: "This bamboo flute is hand-crafted by the Yerava tribe, known for its soothing sound and traditional design.",
+            userReviews: [
+            "⭐⭐⭐⭐⭐ The sound quality of this flute is amazing! It’s perfect for both beginners and seasoned players.",
+            "⭐⭐⭐⭐ Great craftsmanship! It’s easy to play and has a beautiful, melodic tone.",
+            "⭐⭐⭐⭐⭐ A beautiful piece! I love how lightweight it is, making it easy to carry around."
+        ],
+            image: "https://i.postimg.cc/fb8RmtPk/Yerava-Bamboo-Flute.jpg"
+        },
+         19: {
+            name: "Soliga Ragi Millet (Organic)",
+            price: 60,
+            description: "This organic millet is harvested by the Soliga tribe, rich in nutrients and perfect for making healthy dishes.",
+            userReviews: [
+            "⭐⭐⭐⭐⭐ This organic ragi is fantastic! It’s nutritious and tastes great in my porridge and pancakes.",
+            "⭐⭐⭐⭐ High quality! I appreciate that it’s sourced from local tribes. It cooks well and has a lovely flavor.",
+            "⭐⭐⭐⭐⭐ Perfect for healthy eating! I’ve been using it in my diet and love the health benefits."
+        ],
+            image: "https://i.postimg.cc/rmzFJy6j/Soliga-Ragi-Millet-Organic.jpg"
+        },
+         20: {
+            name: "Hakki-Pikki Tribal Knife with Wooden Handle",
+            price: 1200,
+            description: "This traditional knife with a sturdy wooden handle is crafted by the Hakki-Pikki tribe, designed for utility and durability.",
+
+            image: "https://i.postimg.cc/brty76w2/Hakki-Pikki-Tribal-Knife-with-Wooden-Handle.jpg"
+        },
+    };
+
+    // Hide all sections except the product grid by default
+    function hideAllSections() {
+        document.getElementById("product-grid").style.display = 'none';
+        document.getElementById("wishlist-page").style.display = 'none';
+        document.getElementById("cart-page").style.display = 'none';
+        document.getElementById("product-details").style.display = 'none';
+        document.getElementById("checkout-page").style.display = 'none';
+        document.getElementById("payment-page").style.display = 'none';
+        document.getElementById("order-confirmation-page").style.display = 'none';
+    }
+
+    function viewProductDetails(id) {
+        const product = productData[id];
+        if (product) {
+            productId = id;
+            productName = product.name;
+            productPrice = product.price;
+            document.getElementById("product-name").textContent = product.name;
+            document.getElementById("product-price").textContent = "₹" + product.price;
+            document.getElementById("product-description").textContent = "Description: " + product.description;
+            document.getElementById("user-reviews").textContent = product.userReviews;
+            document.getElementById("product-image").src = product.image;
+        }
+        hideAllSections();
+        document.getElementById("product-details").style.display = 'block';
+    }
+
+    function goBackToProducts() {
+        hideAllSections();
+        document.getElementById("product-grid").style.display = 'grid';
+    }
+
+    function addToWishlist(id, name, price) {
+        wishlist.push({ id, name, price });
+        alert(name + " has been added to your wishlist.");
+    }
+
+    function showWishlist() {
+        hideAllSections();
+        let wishlistHTML = '<tr><th>Product</th><th>Price</th></tr>';
+        wishlist.forEach(item => {
+            wishlistHTML += `<tr>
+                <td>${item.name}</td>
+                <td>₹${item.price}</td>
+                <td><button onclick="addToCart(${item.id}, '${item.name}', ${item.price})">Add to Cart</button></td>
+            </tr>`;
+        });
+        document.getElementById("wishlist-items").innerHTML = wishlistHTML;
+        document.getElementById("wishlist-page").style.display = 'block';
+    }
+
+    function addToCart(id, name, price) {
+        cart.push({ id, name, price });
+        alert(name + " has been added to your cart.");
+    }
+
+    function showCart() {
+        hideAllSections();
+        let cartHTML = '<tr><th>Product</th><th>Price</th></tr>';
+        let total = 0;
+        cart.forEach(item => {
+            total += item.price;
+            cartHTML += `<tr><td>${item.name}</td><td>₹${item.price}</td></tr>`;
+        });
+        let tax = total * 0.18;
+        let delivery = Math.min(100, total * 0.05);
+        let finalTotal = total + tax + delivery;
+
+        cartHTML += `<tr><td colspan="2">Taxes (18%): ₹${tax}</td></tr>`;
+        cartHTML += `<tr><td colspan="2">Delivery: ₹${delivery}</td></tr>`;
+        cartHTML += `<tr><td class="total">Total: ₹${finalTotal}</td></tr>`;
+
+        document.getElementById("cart-items").innerHTML = cartHTML;
+        document.getElementById("cart-page").style.display = 'block';
+    }
+
+
+
+    function checkout() {
+        hideAllSections();
+        document.getElementById("checkout-page").style.display = 'block';
+    }
+
+    function confirmOrder(event) {
+    event.preventDefault(); // Prevent form submission
+
+    // Get values of all the input fields
+    const pincode = document.getElementById("pincode").value;
+    const address = document.getElementById("address").value;
+    const locality = document.getElementById("locality").value;
+    const city = document.getElementById("city").value;
+    const state = document.getElementById("state").value;
+    const addressType = document.querySelector('input[name="address-type"]:checked').value;
+
+    // Check if all fields are filled
+    if (pincode && address && locality && city && state) {
+        hideAllSections(); // Hide all sections before showing payment page
+        document.getElementById("payment-page").style.display = 'block';
+        console.log(`Address saved as: ${addressType}`);
+    } else {
+        alert("Please fill in all the required fields.");
+    }
+}
+
+    function showUPIOptions() {
+    hideAllPaymentOptions();
+    document.getElementById("upi-options").style.display = 'block';
+}
+
+function showNetBankingOptions() {
+    hideAllPaymentOptions();
+    document.getElementById("netbanking-options").style.display = 'block';
+}
+
+function showCashOnDelivery() {
+    hideAllPaymentOptions();
+    alert("Order placed successfully!");
+    hideAllSections();
+    document.getElementById("order-confirmation-page").style.display = 'block';
+}
+
+function showCardOptions() {
+    hideAllPaymentOptions();
+    document.getElementById("card-options").style.display = 'block';
+}
+
+// Hide all payment sub-options (UPI, Net Banking, and Card Options)
+function hideAllPaymentOptions() {
+    document.getElementById("upi-options").style.display = 'none';
+    document.getElementById("netbanking-options").style.display = 'none';
+    document.getElementById("card-options").style.display = 'none';
+}
+
+// Process payment based on method selected
+function processPayment(method) {
+    hideAllPaymentOptions();
+    
+    if (method === 'phonepe' || method === 'googlepay' || method === 'otherupi') {
+        alert("Redirecting to selected UPI option...");
+    } else if (method === 'axis' || method === 'hdfc' || method === 'icici' || method === 'kotak' || method === 'sbi') {
+        alert(`Redirecting to ${method.toUpperCase()} Net Banking...`);
+    } else if (method === 'creditcard') {
+        alert("Processing Credit/Debit Card Payment...");
+    } else if (method === 'paylater') {
+        window.location.href = "paylater.html"; // Replace with the actual Pay Later page path
+        return; 
+    } else if (method === 'emi') {
+        window.location.href = "emi.html"; // Replace with the actual Pay Later page path
+        return; 
+    }
+    
+    if (method !== 'cod') {
+        hideAllSections();
+        document.getElementById("order-confirmation-page").style.display = 'block';
+    }
+}
+
+    function returnToWebpage() {
+        hideAllSections();
+        document.getElementById("product-grid").style.display = 'grid';
+    }
+</script>
+<script src="nativeaura.js"></script>
+    <script src="acc.js"></script>
+    <script src="script.js"></script>
+    <script src="server.js"></script>
+
+</body>
+</html>

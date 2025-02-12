@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tribal Treasure Hunt</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+
+        .game-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #4CAF50;
+        }
+
+        .game-info p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            width: 80%;
+            margin-bottom: 10px;
+            border: 2px solid #4CAF50;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #8B4513; /* Changed to brown */
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        button:hover {
+            background-color: #7A3C1F;
+        }
+
+        #score {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        .game-info {
+            display: none; /* Initially hide the answer input and submit button */
+        }
+
+        #startButton {
+            display: block; /* Show the start button */
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>🌟 Treasure Hunt 🌟</h1>
+        <p>Guess the tribe based on the clue to discover treasures of Karnataka's tribal communities!</p>
+
+        <div class="game-info">
+            <p id="clue"></p>
+            <input type="text" id="answer" placeholder="Type your answer here" />
+            <button onclick="checkAnswer()">Submit</button>
+            <p id="result"></p>
+        </div>
+
+        <div id="score">
+            <p>Score: <span id="score-value">0</span></p>
+        </div>
+
+        <button onclick="startGame()" id="startButton">Start Game</button>
+    </div>
+
+    <script>
+        const tribalData = [
+    { tribe: "Soliga", treasure: "Honey Pot", clue: "This tribe is known for Honey Pot." },
+    { tribe: "Jenukuruba", treasure: "Beehive", clue: "This tribe is known for Beehive." },
+    { tribe: "Lambani", treasure: "Bead Necklace", clue: "This tribe is known for Bead Necklace." },
+    { tribe: "Hakki-Pikki", treasure: "Wooden Bow", clue: "This tribe is known for Wooden Bow." },
+    { tribe: "Kadu Kuruba", treasure: "Clay Pottery", clue: "This tribe is known for Clay Pottery." },
+    { tribe: "Siddhi", treasure: "Traditional Mask", clue: "This tribe is known for Traditional Mask." },
+    { tribe: "Gond", treasure: "Wooden Plough", clue: "This tribe is known for Wooden Plough." },
+    { tribe: "Beda", treasure: "Handwoven Basket", clue: "This tribe is known for Handwoven Baskets." },
+    { tribe: "Sabar", treasure: "Herbal Medicine", clue: "This tribe is known for Herbal Medicine." },
+    { tribe: "Yerava", treasure: "Spiritual Dance Costume", clue: "This tribe is known for Spiritual Dance Costume." },
+    { tribe: "Reddy", treasure: "Traditional Sword", clue: "This tribe is known for Traditional Sword." },
+    { tribe: "Betta Kuruba", treasure: "Wild Herbs", clue: "This tribe is known for Wild Herbs used in traditional medicines." },
+    { tribe: "Toda", treasure: "Woolen Garments", clue: "This tribe is known for Woolen Garments." },
+    { tribe: "Nayaka", treasure: "Painted Shields", clue: "This tribe is known for Painted Shields used in battle." },
+    { tribe: "Koli", treasure: "Fishing Net", clue: "This tribe is known for Fishing Nets." }
+];
+
+
+        let score = 0;
+        let currentTribeIndex = 0;
+
+        // Function to start or restart the game
+        function startGame() {
+            // Reset the game state
+            score = 0;
+            currentTribeIndex = 0;
+            document.getElementById("score-value").textContent = score;
+            document.getElementById("result").textContent = '';
+            document.getElementById("answer").value = '';
+            document.getElementById("startButton").style.display = 'none'; // Hide the start button after game starts
+            document.querySelector(".game-info").style.display = 'block'; // Show the answer input and submit button
+            displayClue(); // Display the first clue
+        }
+
+        // Function to display the current clue
+        function displayClue() {
+            if (currentTribeIndex < tribalData.length) {
+                document.getElementById("clue").textContent = tribalData[currentTribeIndex].clue;
+            } else {
+                // Game over
+                document.getElementById("clue").textContent = "🎉 Game Over! You've completed the treasure hunt!";
+                document.getElementById("result").textContent = `Your final score is: ${score}`;
+                document.getElementById("startButton").style.display = 'block'; // Show the start button to restart
+                document.getElementById("startButton").textContent = "Restart Game";
+            }
+        }
+
+        // Function to check the player's answer
+        function checkAnswer() {
+            const userAnswer = document.getElementById("answer").value.trim().toLowerCase();
+            const correctAnswer = tribalData[currentTribeIndex].tribe.toLowerCase();
+
+            // Check if the answer is correct
+            if (userAnswer === correctAnswer) {
+                score++;
+                document.getElementById("result").textContent = `🎉 Correct! You found the ${tribalData[currentTribeIndex].treasure}!`;
+            } else {
+                document.getElementById("result").textContent = `❌ Incorrect! The correct answer was ${tribalData[currentTribeIndex].tribe}.`;
+            }
+
+            // Update score and move to next tribe
+            document.getElementById("score-value").textContent = score;
+            currentTribeIndex++;
+
+            // Reset the answer input field for the next clue
+            document.getElementById("answer").value = '';
+            
+            // Show the next clue after a short delay
+            setTimeout(displayClue, 1500);
+        }
+    </script>
+</body>
+</html>

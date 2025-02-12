@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EMI Option</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .emi-container {
+            background-color: white;
+            width: 400px;
+            padding: 20px;
+            margin: 100px auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        .emi-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-size: 14px;
+            color: #555;
+        }
+
+        select, input {
+            padding: 8px;
+            margin: 10px 0;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .emi-result p {
+            font-size: 16px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .emi-button {
+            background-color: #6a4e23;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .emi-button:hover {
+            background-color: #5a4020;
+        }
+
+        .confirmation-message {
+            text-align: center;
+            padding: 20px;
+            background-color: #d1b29b; /* Light brown color */
+            color: #333;
+            border-radius: 8px;
+            display: none;
+            margin-top: 20px;
+        }
+
+        .return-button {
+            background-color: #6a4e23;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        .return-button:hover {
+            background-color: #5a4020;
+        }
+    </style>
+</head>
+<body>
+    <div class="emi-container">
+        <h2>Select EMI Option</h2>
+        <div class="emi-details">
+            <label for="emi-duration">Choose EMI Duration:</label>
+            <select id="emi-duration" onchange="calculateEMI()">
+                <option value="3">3 Months</option>
+                <option value="6">6 Months</option>
+                <option value="9">9 Months</option>
+                <option value="12">12 Months</option>
+                <option value="18">18 Months</option>
+                <option value="24">24 Months</option>
+            </select>
+            <br><br>
+
+            <label for="total-price">Total Price (₹):</label>
+            <input type="number" id="total-price" value="10000" onchange="calculateEMI()">
+            <br><br>
+
+            <div class="emi-result">
+                <p>Monthly EMI: ₹<span id="emi-amount">0.00</span></p>
+            </div>
+
+            <button class="emi-button" onclick="applyEMI()">Apply EMI</button>
+        </div>
+    </div>
+
+    <!-- Confirmation Message Section -->
+    <div class="confirmation-message" id="confirmation-message">
+        <p>Your order is successfully placed. Your order will be delivered in 8 days. Thank you for trusting us!</p>
+        <button class="return-button" onclick="returnToShopping()">Return to Shopping</button>
+    </div>
+
+    <script>
+        function calculateEMI() {
+            // Get the total price and selected EMI duration
+            let totalPrice = document.getElementById('total-price').value;
+            let emiDuration = document.getElementById('emi-duration').value;
+
+            // Basic validation
+            if (totalPrice <= 0 || emiDuration <= 0) {
+                document.getElementById('emi-amount').innerText = "0.00";
+                return;
+            }
+
+            // Calculate the EMI
+            let emiAmount = (totalPrice / emiDuration).toFixed(2);
+
+            // Display the EMI amount
+            document.getElementById('emi-amount').innerText = emiAmount;
+        }
+
+        function applyEMI() {
+            // Get the selected EMI duration and total price
+            let totalPrice = document.getElementById('total-price').value;
+            let emiDuration = document.getElementById('emi-duration').value;
+
+            // Show the confirmation message
+            document.getElementById('confirmation-message').style.display = 'block';
+
+            // Optionally, disable the EMI form once the order is placed
+            document.querySelector('.emi-container').style.display = 'none';
+
+            // Simple confirmation of the EMI amount (optional)
+            console.log(`You have selected EMI of ₹${(totalPrice / emiDuration).toFixed(2)} per month for ${emiDuration} months.`);
+        }
+
+        function returnToShopping() {
+            // Redirect to the shopping page (replace with actual URL)
+            window.location.href = "shop1_final.html";  // Change to your actual shopping site URL
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tribal Art Match</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f0f0f0;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .game-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+        }
+        .column {
+            width: 40%;
+            text-align: center;
+        }
+        .list-item {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .list-item:hover {
+            background-color: #0056b3;
+        }
+        .matched {
+            background-color: #28a745;
+        }
+        .incorrect {
+            background-color: #dc3545;
+        }
+        .list-item.matched, .list-item.incorrect {
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Tribal Art Match Game</h2>
+
+<div class="game-container">
+    <!-- Art List -->
+    <div class="column">
+        <h3>Art Forms</h3>
+        <div id="art-list"></div>
+    </div>
+    <!-- Tribe List -->
+    <div class="column">
+        <h3>Tribes</h3>
+        <div id="tribe-list"></div>
+    </div>
+</div>
+
+<script>
+    // List of art forms and corresponding tribes
+    const artData = [
+        { art: "Lambani Embroidery", tribe: "Lambani" },
+        { art: "Banjara Pottery", tribe: "Banjara" },
+        { art: "Siddi Dance", tribe: "Siddi" },
+        { art: "Soliga Wood Carving", tribe: "Soliga" },
+        { art: "Kadu Kuruba Painting", tribe: "Kadu Kuruba" },
+        { art: "Hakkipikki Bird Catching", tribe: "Hakkipikki" },
+        { art: "Jenukuruba Basket Weaving", tribe: "Jenukuruba" },
+        { art: "Beda Agricultural Tools", tribe: "Beda" },
+        { art: "Siddi Drums", tribe: "Siddi" },
+        { art: "Kadu Kuruba Leather Work", tribe: "Kadu Kuruba" },
+    ];
+
+    let artListHTML = "";
+    let tribeListHTML = "";
+
+    // Generate art and tribe lists
+    artData.forEach(item => {
+        artListHTML += `<div class="list-item" onclick="matchArt('${item.art}', '${item.tribe}', this)">${item.art}</div>`;
+        tribeListHTML += `<div class="list-item" onclick="matchArt('${item.art}', '${item.tribe}', this)">${item.tribe}</div>`;
+    });
+
+    // Insert lists into HTML
+    document.getElementById("art-list").innerHTML = artListHTML;
+    document.getElementById("tribe-list").innerHTML = tribeListHTML;
+
+    // Function to match art form with the correct tribe
+    function matchArt(art, tribe, clickedElement) {
+        const artElements = document.getElementsByClassName("list-item");
+        
+        // Check if the match is correct
+        if (clickedElement.textContent === tribe) {
+            clickedElement.classList.add("matched");
+            // Disable all matching art elements
+            for (let element of artElements) {
+                if (element.textContent === art) {
+                    element.classList.add("matched");
+                }
+            }
+        } else {
+            clickedElement.classList.add("incorrect");
+            // Disable all incorrect art elements
+            for (let element of artElements) {
+                if (element.textContent === art) {
+                    element.classList.add("incorrect");
+                }
+            }
+        }
+
+        // Disable further interactions after a match is made
+        clickedElement.style.pointerEvents = 'none';
+        setTimeout(checkCompletion, 500); // Check if all are matched
+    }
+
+    // Function to check if all matches are completed
+    function checkCompletion() {
+        const matchedItems = document.getElementsByClassName("matched");
+        const totalItems = artData.length * 2; // art + tribe
+        if (matchedItems.length === totalItems) {
+            alert("Congratulations! You matched all the art forms with their respective tribes.");
+        }
+    }
+</script>
+
+</body>
+</html>

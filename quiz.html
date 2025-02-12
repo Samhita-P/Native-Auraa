@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz - Test Your Knowledge</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #8B4513; /* Brown background */
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+
+        header {
+            background-color: #5A2D0C;
+            padding: 15px;
+            text-align: center;
+            font-size: 2rem;
+        }
+
+        h2 {
+            color: #FFD700; /* Gold color */
+        }
+
+        .question-container {
+            margin: 20px 0;
+        }
+
+        .question-container p {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .answers {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .answers li {
+            margin: 10px 0;
+        }
+
+        button {
+            background-color: #FFD700; /* Gold color */
+            color: #5A2D0C;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        button:hover {
+            background-color: #DAA520;
+        }
+
+        .result {
+            background-color: #5A2D0C;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .result p {
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>Quiz - Test Your Knowledge</header>
+
+    <div id="quiz-container">
+        <div id="question-1" class="question-container">
+            <p>1. What is the capital of Karnataka?</p>
+            <ul class="answers">
+                <li><input type="radio" name="q1" value="Bengaluru"> Bengaluru</li>
+                <li><input type="radio" name="q1" value="Mysuru"> Mysuru</li>
+                <li><input type="radio" name="q1" value="Hubballi"> Hubballi</li>
+                <li><input type="radio" name="q1" value="Mangaluru"> Mangaluru</li>
+            </ul>
+        </div>
+
+        <div id="question-2" class="question-container">
+            <p>2. Which tribe is known for its beadwork in Karnataka?</p>
+            <ul class="answers">
+                <li><input type="radio" name="q2" value="Hakki-Pikki"> Hakki-Pikki</li>
+                <li><input type="radio" name="q2" value="Soliga"> Soliga</li>
+                <li><input type="radio" name="q2" value="Lambani"> Lambani</li>
+                <li><input type="radio" name="q2" value="Siddhi"> Siddhi</li>
+            </ul>
+        </div>
+
+        <div id="question-3" class="question-container">
+            <p>3. What is the primary crop grown by the Kadu Kuruba tribe?</p>
+            <ul class="answers">
+                <li><input type="radio" name="q3" value="Rice"> Rice</li>
+                <li><input type="radio" name="q3" value="Coffee"> Coffee</li>
+                <li><input type="radio" name="q3" value="Millets"> Millets</li>
+                <li><input type="radio" name="q3" value="Sugarcane"> Sugarcane</li>
+            </ul>
+        </div>
+
+        <div id="question-4" class="question-container">
+            <p>4. Which traditional dance form is popular among the Lambani tribe?</p>
+            <ul class="answers">
+                <li><input type="radio" name="q4" value="Garba"> Garba</li>
+                <li><input type="radio" name="q4" value="Dollu Kunitha"> Dollu Kunitha</li>
+                <li><input type="radio" name="q4" value="Gidda"> Gidda</li>
+                <li><input type="radio" name="q4" value="Chowdike"> Chowdike</li>
+            </ul>
+        </div>
+
+        <div id="question-5" class="question-container">
+            <p>5. Which of the following is a primary language spoken by the Hakki-Pikki tribe?</p>
+            <ul class="answers">
+                <li><input type="radio" name="q5" value="Kannada"> Kannada</li>
+                <li><input type="radio" name="q5" value="Hindi"> Hindi</li>
+                <li><input type="radio" name="q5" value="Tulu"> Tulu</li>
+                <li><input type="radio" name="q5" value="Marathi"> Marathi</li>
+            </ul>
+        </div>
+
+        <div id="question-6" class="question-container">
+            <p>6. The Soliga tribe is primarily located in which district of Karnataka?</p>
+            <ul class="answers">
+                <li><input type="radio" name="q6" value="Chamarajanagar"> Chamarajanagar</li>
+                <li><input type="radio" name="q6" value="Hassan"> Hassan</li>
+                <li><input type="radio" name="q6" value="Mysuru"> Mysuru</li>
+                <li><input type="radio" name="q6" value="Dakshina Kannada"> Dakshina Kannada</li>
+            </ul>
+        </div>
+
+        <div id="question-7" class="question-container">
+            <p>7. What is the traditional occupation of the Kadu Kuruba tribe?</p>
+            <ul class="answers">
+                <li><input type="radio" name="q7" value="Agriculture"> Agriculture</li>
+                <li><input type="radio" name="q7" value="Hunter-gatherer"> Hunter-gatherer</li>
+                <li><input type="radio" name="q7" value="Craftsmanship"> Craftsmanship</li>
+                <li><input type="radio" name="q7" value="Fishing"> Fishing</li>
+            </ul>
+        </div>
+
+        <div id="question-8" class="question-container">
+            <p>8. The term 'Aadivasi' refers to which group?</p>
+            <ul class="answers">
+                <li><input type="radio" name="q8" value="Indigenous tribes"> Indigenous tribes</li>
+                <li><input type="radio" name="q8" value="Urban dwellers"> Urban dwellers</li>
+                <li><input type="radio" name="q8" value="Nomadic people"> Nomadic people</li>
+                <li><input type="radio" name="q8" value="Mountain dwellers"> Mountain dwellers</li>
+            </ul>
+        </div>
+
+        <div id="question-9" class="question-container">
+            <p>9. Which tribe is famous for its unique potter’s craft?</p>
+            <ul class="answers">
+                <li><input type="radio" name="q9" value="Kadu Kuruba"> Kadu Kuruba</li>
+                <li><input type="radio" name="q9" value="Lambani"> Lambani</li>
+                <li><input type="radio" name="q9" value="Siddhi"> Siddhi</li>
+                <li><input type="radio" name="q9" value="Soliga"> Soliga</li>
+            </ul>
+        </div>
+
+        <div id="question-10" class="question-container">
+            <p>10. Which tribal community is known for its expertise in honey hunting?</p>
+            <ul class="answers">
+                <li><input type="radio" name="q10" value="Hakki-Pikki"> Hakki-Pikki</li>
+                <li><input type="radio" name="q10" value="Siddhi"> Siddhi</li>
+                <li><input type="radio" name="q10" value="Soliga"> Soliga</li>
+                <li><input type="radio" name="q10" value="Jenukuruba"> Jenukuruba</li>
+            </ul>
+        </div>
+
+        <button onclick="submitQuiz()">Submit Quiz</button>
+
+        <div id="result" class="result" style="display:none;">
+            <p>Quiz Submitted! Your score will be displayed here.</p>
+        </div>
+    </div>
+
+    <script>
+        function submitQuiz() {
+            let score = 0;
+            const correctAnswers = {
+                q1: "Bengaluru",
+                q2: "Hakki-Pikki",
+                q3: "Coffee",
+                q4: "Dollu Kunitha",
+                q5: "Kannada",
+                q6: "Chamarajanagar",
+                q7: "Agriculture",
+                q8: "Indigenous tribes",
+                q9: "Kadu Kuruba",
+                q10: "Hakki-Pikki"
+            };
+
+            for (let i = 1; i <= 10; i++) {
+                const answer = document.querySelector(`input[name="q${i}"]:checked`);
+                if (answer && answer.value === correctAnswers[`q${i}`]) {
+                    score++;
+                }
+            }
+
+            document.getElementById("result").style.display = "block";
+            document.getElementById("result").innerHTML = `<p>Your score is: ${score}/10</p>`;
+        }
+    </script>
+</body>
+</html>
